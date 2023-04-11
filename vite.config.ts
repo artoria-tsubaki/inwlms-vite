@@ -2,7 +2,7 @@ import { defineConfig, loadEnv, ConfigEnv, UserConfig } from 'vite'
 import { resolve } from "path";
 import vue from '@vitejs/plugin-vue'
 import unocss from 'unocss/vite'
-import { wrapperEnv } from "./src/utils/getEnv";
+// import { wrapperEnv } from "./src/utils/getEnv";
 
 // https://vitejs.dev/config/
 export default defineConfig(({mode}: ConfigEnv): UserConfig => {
