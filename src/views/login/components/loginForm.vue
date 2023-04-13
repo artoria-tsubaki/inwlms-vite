@@ -7,6 +7,8 @@ import md5 from 'js-md5'
 import router from '@/routers'
 import { HOME_URL } from '@/config/config'
 import { getTimeState } from '@/utils/utils'
+import { loginApi } from '@/api/modules/auth'
+import { useGlobalStoreHook } from '@/stores/modules/app'
 
 type FormInstance = InstanceType<typeof ElForm>
 const loginFormRef = ref<FormInstance>()
@@ -20,7 +22,10 @@ const loginFormRules = reactive({
 
 const loading = ref(false)
 
-const resetForm = (formEl: FormInstance | undefined) => {}
+const resetForm = (formEl: FormInstance | undefined) => {
+  if (!formEl) return
+  formEl.resetFields()
+}
 const login = (formEl: FormInstance | undefined) => {
   if (!formEl) return
   // 校验
@@ -29,7 +34,9 @@ const login = (formEl: FormInstance | undefined) => {
     loading.value = true
     try {
       // 执行登录接口
-      // const { data } = await loginApi({ ...loginForm, password: md5(loginForm.password) })
+      const { data } = await loginApi({ ...loginForm, password: md5(loginForm.password) })
+
+      useGlobalStoreHook().setToken(data.token)
 
       //添加动态路由
       // await initDynamicRouter()
@@ -67,7 +74,7 @@ document.onkeydown = (e: any) => {
       </el-input>
     </el-form-item>
     <el-form-item prop="password">
-      <el-input v-model="loginForm.password" placeholder="密码">
+      <el-input v-model="loginForm.password" placeholder="密码" type="password">
         <template #prefix>
           <el-icon class="el-input__icon"><lock /></el-icon>
         </template>

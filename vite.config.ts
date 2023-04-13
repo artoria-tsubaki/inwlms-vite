@@ -23,13 +23,13 @@ export default defineConfig(({mode}: ConfigEnv): UserConfig => {
       open: viteEnv.VITE_OPEN,
       cors: true,
       // 跨域代理配置
-      // proxy: {
-      //   "/api": {
-      //     target: "https://mock.mengxuegu.com/mock/629d727e6163854a32e8307e",
-      //     changeOrigin: true,
-      //     rewrite: path => path.replace(/^\/api/, "")
-      //   }
-      // }
+      proxy: {
+        "/api": {
+          target: "https://mock.mengxuegu.com/mock/64362b4a56377f1ed96c0b3a",
+          changeOrigin: true,
+          rewrite: path => path.replace(/^\/api/, "")
+        }
+      }
     },
     plugins: [
       vue(),
